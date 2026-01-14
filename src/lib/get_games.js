@@ -9,7 +9,7 @@ function getAllGames(API) {
         .catch((error) => console.error("Error fetching games:", error));
 }
 
-export async function getGames(startIndex) {
+export async function getGames(startIndex, genre = [], platform = null, sort = null) {
     const api = "https://www.freetogame.com/api/games";
     const size = 20;
 
