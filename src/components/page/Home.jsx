@@ -1,11 +1,14 @@
+import { getGames } from "@/lib/get_games";
 import { InputSelect } from "../ui/input_select";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function Home() {
 
     const [selectedPlatform,setSelectedPlatform] = useState(null);
     const [selectedGenre,setSelectedGenre] = useState(null);
+
+    const [games,setGames] = useState([]);
 
     const platformOptions = [
         { value: "pc", label: "PC" },
@@ -20,6 +23,16 @@ export default function Home() {
         { value: "rpg", label: "RPG" },
         { value: "strategy", label: "Strategy" }
     ];
+
+    useEffect(() => {
+        const fetchGames = async () => {
+            let games = await getGames(0);
+            setGames(games);
+            console.log("Fetched games:", games);
+        };
+        fetchGames();
+    }, [selectedPlatform, selectedGenre]);
+
 
     
 
