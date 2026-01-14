@@ -2,6 +2,7 @@ import { getGames } from "@/lib/get_games";
 import { InputSelect } from "../ui/input_select";
 
 import { useEffect, useState } from "react";
+import GameCard from "../ui/GameCard/GameCard";
 
 export default function Home() {
 
@@ -40,18 +41,26 @@ export default function Home() {
 
 
   return (
-    <div className="p-4 flex gap-8">
+    <div> 
+        <div className="p-4 flex gap-8">
 
-      <div className="flex gap-3 items-baseline mb-6">
-        <h1 className="text-1xl font-medium">Platform: </h1>
-        <InputSelect selectLabel="Platform" selectItems={platformOptions} placeholder="Select a platform " onValueChange={setSelectedPlatform}/>
-      </div>
+        <div className="flex gap-3 items-baseline mb-6">
+            <h1 className="text-1xl font-medium">Platform: </h1>
+            <InputSelect selectLabel="Platform" selectItems={platformOptions} placeholder="Select a platform " onValueChange={setSelectedPlatform}/>
+        </div>
 
-      <div className="flex gap-3 items-baseline mb-6">
-        <h1 className="text-1xl font-medium">Genre: </h1>
-        <InputSelect selectLabel="Genre" selectItems={genreOptions} placeholder="Select a genre" onValueChange={setSelectedGenre}/>
-      </div>
+        <div className="flex gap-3 items-baseline mb-6">
+            <h1 className="text-1xl font-medium">Genre: </h1>
+            <InputSelect selectLabel="Genre" selectItems={genreOptions} placeholder="Select a genre" onValueChange={setSelectedGenre}/>
+        </div>
 
-    </div>
+        </div>
+
+        <div className="grid grid-cols-3 gap-6 p-4">
+            {games.map((game) => (
+                GameCard({game})
+            ))}
+        </div>
+  </div>
   )
 }
