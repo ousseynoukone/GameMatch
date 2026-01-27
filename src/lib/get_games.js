@@ -1,6 +1,8 @@
 import { useRef } from "react";
 
 let cacheAllGames = null;
+const api = "api/games";
+const size = 20;
 
 function getAllGames(API) {
     return fetch(API)
@@ -10,9 +12,6 @@ function getAllGames(API) {
 }
 
 export async function getGames(startIndex) {
-    const api = "api/games";
-    const size = 20;
-
     // Si le cache est vide, on remplit la variable globale
     if (!cacheAllGames) {
         cacheAllGames = await getAllGames(api);
@@ -25,4 +24,12 @@ export async function getGames(startIndex) {
     // Extraction des jeux
     const games = cacheAllGames.slice(startIndex, startIndex + size);
     return games;
+}
+
+export async function getGameById(id) {
+    apibyId = "api/game?id=" + id
+    return fetch(apibyId)
+        .then((response) => response.json())
+        .then((data) => data)
+        .catch((error) => console.error("Error fetching game by ID:", error));
 }
