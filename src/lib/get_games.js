@@ -8,18 +8,22 @@ const size = 20;
 
 // Fetch all games with optional filters (no React hooks here)
 async function getAllGames(genre = [], platform = "", sortBy = "") {
-  let apiUrl = api + "/games";
+  const params = new URLSearchParams();
 
-  if (genre.length !== 0) {
-    apiUrl += "?category=" + genre.join("&?category=");
+  if (genre.length > 0) {
+    // API typically accepts a single category; if you extend to multiple,
+    // you can adjust this to append multiple params.
+    params.append("category", genre[0]);
   }
   if (platform) {
-    apiUrl += (genre.length === 0 ? "?" : "&?") + "platform=" + platform;
+    params.append("platform", platform);
   }
   if (sortBy) {
-    apiUrl +=
-      (genre.length === 0 && !platform ? "?" : "&?") + "sort-by=" + sortBy;
+    params.append("sort-by", sortBy);
   }
+
+  const apiUrl =
+    api + "/games" + (params.toString() ? `?${params.toString()}` : "");
 
   try {
     const response = await fetch(apiUrl, { headers });

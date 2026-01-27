@@ -16,6 +16,7 @@ export default function Home() {
   const platformOptions = [
     { value: "pc", label: "PC" },
     { value: "browser", label: "Browser" },
+    { value: "all", label: "All Platforms" },
   ];
 
     const genreOptions = [
