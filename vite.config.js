@@ -16,11 +16,5 @@ export default defineConfig({
     },
   },
 
-  server: {
-    proxy: {
-      "/api": {
-        target: "https://www.freetogame.com",
-      },
-    },
-  },
+
 })

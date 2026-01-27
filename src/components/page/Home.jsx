@@ -4,7 +4,12 @@ import { InputSelect } from "../ui/input_select";
 import { useEffect, useState } from "react";
 import GameCard from "../ui/GameCard/GameCard";
 
+
+
 export default function Home() {
+
+    const element = document.querySelector("div#scroll-box");
+
 
     const [selectedPlatform,setSelectedPlatform] = useState(null);
     const [selectedGenre,setSelectedGenre] = useState(null);
@@ -32,6 +37,11 @@ export default function Home() {
             console.log("Fetched games:", games);
         };
         fetchGames();
+
+
+        element.addEventListener("scroll", (event) => {
+            output.textContent = "scroll event fired, waiting for scrollend...";
+        });
     }, [selectedPlatform, selectedGenre]);
 
 
@@ -56,9 +66,9 @@ export default function Home() {
 
         </div>
 
-        <div className="grid grid-cols-3 gap-6 p-4">
+        <div className="grid grid-cols-3 gap-6 p-4 " id="scroll-box">
             {games.map((game) => (
-                GameCard({game})
+                <GameCard key={game.id} game={game} />
             ))}
         </div>
   </div>
