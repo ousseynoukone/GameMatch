@@ -1,4 +1,5 @@
 import { useRef } from "react";
+import { useCallback } from "react";
 
 let cacheAllGames = null;
 const api = "https://free-to-play-games-database.p.rapidapi.com/api";
@@ -8,26 +9,29 @@ const headers = {
 };
 const size = 20;
 
-function getAllGames(API) {
-  return fetch(API + "/games", { headers })
+function getAllGames(genre, platform = "", sortBy = "") {
+  let apiUrl = api + "/games";
+
+  if (genre.length !== 0) {
+    apiUrl += "?category=" + genre.join("&?category=");
+  }
+  if (platform) {
+    apiUrl += (genre.length === 0 ? "?" : "&?") + "platform=" + platform;
+  }
+  if (sortBy) {
+    apiUrl +=
+      (genre.length === 0 && !platform ? "?" : "&?") + "sort-by=" + sortBy;
+  }
+  return fetch(apiUrl, { headers })
     .then((response) => response.json())
     .then((data) => data)
     .catch((error) => console.error("Error fetching games:", error));
 }
 
-export async function getGames(startIndex) {
-  // Si le cache est vide, on remplit la variable globale
-  if (!cacheAllGames) {
-    cacheAllGames = await getAllGames(api);
-  }
-
-  if (!cacheAllGames || cacheAllGames.length === 0) {
-    return [];
-  }
-
-  // Extraction des jeux
-  const games = cacheAllGames.slice(startIndex, startIndex + size);
-  return games;
+export async function getGames(startIndex, genre = [], platform = null, sortBy = null) {
+    const cacheGames = useCallback(getAllGames(genre, platform, sortBy), [genre, platform, sortBy]);
+    const games = cacheAllGames.slice(startIndex, startIndex + size);
+    return games;
 }
 
 export async function getGameById(id) {
@@ -67,24 +71,4 @@ export async function getGamesByString(str) {
   } else {
     return null;
   }
-}
-
-export function getByArg(genre = [], platform = null, sortBy = null) {
-  let apiUrl = api + "/games";
-  if (genre.length !== 0) {
-    apiUrl += "?category=" + genre.join("&?category=");
-  }
-  if (platform) {
-    apiUrl += (genre.length === 0 ? "?" : "&?") + "platform=" + platform;
-  }
-  if (sortBy) {
-    apiUrl +=
-      (genre.length === 0 && !platform ? "?" : "&?") + "sort-by=" + sortBy;
-  }
-  return fetch(apiUrl, { headers })
-    .then((response) => response.json())
-    .then((data) => data)
-    .catch((error) =>
-      console.error("Error fetching games by arguments:", error)
-    );
 }
