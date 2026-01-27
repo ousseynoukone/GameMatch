@@ -37,3 +37,14 @@ export async function getGameById(id) {
         .then((data) => data)
         .catch((error) => console.error("Error fetching game by ID:", error));
 }
+
+export async function getGamesByName(name) {
+    const allGames = cacheAllGames || await getAllGames(api);
+    const id = allGames.find(game => game.title.toLowerCase() === name.toLowerCase())?.id;
+
+    if (id) {
+        return getGameById(id);
+    } else {
+        return null;
+    }
+}
