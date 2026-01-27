@@ -10,16 +10,6 @@ export default defineConfig({
     react()
 
   ],
-  server: {
-    proxy: {
-      // On crée un raccourci : chaque fois qu'on appelle /api-games, 
-      // Vite le redirige vers le vrai site
-      '/api-games': {
-        target: 'https://www.freetogame.com/api',
-        changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/api-games/, '')
-      }
-    }},
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),

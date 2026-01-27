@@ -10,7 +10,7 @@ import {
 export function InputSelect({selectLabel, selectItems, placeholder, onValueChange}) {
   return (
     <Select onValueChange={onValueChange}>
-      <SelectTrigger className="w-[100]">
+      <SelectTrigger className="w-full">
         <SelectValue placeholder={placeholder} />
       </SelectTrigger>
       <SelectContent>
