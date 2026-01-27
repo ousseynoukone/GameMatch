@@ -6,13 +6,12 @@ const headers = {
 };
 const size = 20;
 
-// Fetch all games with optional filters (no React hooks here)
+
 async function getAllGames(genre = [], platform = "", sortBy = "") {
   const params = new URLSearchParams();
 
   if (genre.length > 0) {
-    // API typically accepts a single category; if you extend to multiple,
-    // you can adjust this to append multiple params.
+
     params.append("category", genre[0]);
   }
   if (platform) {
@@ -29,7 +28,6 @@ async function getAllGames(genre = [], platform = "", sortBy = "") {
     const response = await fetch(apiUrl, { headers });
     const data = await response.json();
 
-    // Cache only the unfiltered list for search
     if (genre.length === 0 && !platform && !sortBy) {
       cacheAllGames = data;
     }
@@ -41,7 +39,6 @@ async function getAllGames(genre = [], platform = "", sortBy = "") {
   }
 }
 
-// Paginated games for Home (uses startIndex, platform, genre, sortBy)
 export async function getGames(
   startIndex,
   genre = [],
