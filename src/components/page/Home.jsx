@@ -3,6 +3,8 @@ import { InputSelect } from "../ui/input_select";
 import { useEffect, useState } from "react";
 import GameCard from "../ui/GameCard/GameCard";
 
+import SearchGameModal from '../ui/SearchGame/SearchGame';
+
 export default function Home() {
   const [selectedPlatform, setSelectedPlatform] = useState(null);
   const [selectedGenre, setSelectedGenre] = useState(null);
@@ -34,13 +36,18 @@ export default function Home() {
 
       const newGames = await getGames(startIndex);
 
-      setGames(prevGames => [...prevGames, ...newGames]);
+      setGames(prevGames => { if(JSON.stringify(prevGames) === JSON.stringify(newGames)) return prevGames; else return [...prevGames, ...newGames] });
 
       setLoading(false);
     };
 
     fetchGames();
   }, [startIndex]);
+
+  useEffect(() => {
+    setGames([]);
+    setStartIndex(0);
+  }, [selectedPlatform, selectedGenre]);
 
 
 

@@ -1,6 +1,12 @@
+import React from "react";
+import SearchGameModal from '../SearchGame/SearchGame';
+import { useState } from "react";
 export default function GameCard({game}) {
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
     return (
-        <div className="border rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300">    
+        <> 
+        <div onClick={() => setIsModalOpen(true)} className="border rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300" >    
             <img src={game.thumbnail} alt={game.title} className="w-full h-48 object-cover"/>
             <div className="p-4">
                 <h2 className="text-lg font-semibold mb-2">{game.title}</h2>
@@ -11,5 +17,8 @@ export default function GameCard({game}) {
                 </div>
             </div>
         </div>
+        <SearchGameModal open={isModalOpen} setOpen={setIsModalOpen} game={game} />
+
+        </>
     );
 }
