@@ -23,9 +23,9 @@ export default function NavBar() {
           </Link>
         </li>
 
-        <li className="flex gap-4 items-center">
+        <li className="flex gap-4 items-center me-4">
           <button
-            className="cursor-pointer"
+            className="cursor-pointer text-xl"
             type="button"
             onClick={() => setIsSearchOpen(true)}
           >

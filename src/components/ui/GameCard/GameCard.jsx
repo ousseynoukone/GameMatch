@@ -35,7 +35,7 @@ export default function GameCard({ game, onClick }) {
           <button
             type="button"
             onClick={handleFavoriteClick}
-            className="text-red-500 hover:text-red-600 text-xl"
+            className="text-red-500 hover:text-red-600 text-xl cursor-pointer"
           >
             {fav ? <i class="fa-solid fa-heart"></i> : <i class="fa-regular fa-heart"></i>}
 
