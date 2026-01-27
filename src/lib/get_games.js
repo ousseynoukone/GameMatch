@@ -55,14 +55,14 @@ export async function getGamesByString(str) {
   const allGames = cacheAllGames || (await getAllGames(api));
   const allGamesByString = [];
 
-  allGames.array.forEach((game) => {
+  allGames.forEach((game) => {
     const nameGame = game.title;
     if (nameGame.includes(str)) {
       allGamesByString.push(game);
     }
   });
 
-  if (allGamesByString.count > 0) {
+  if (allGamesByString.length > 0) {
     return allGamesByString;
   } else {
     return null;

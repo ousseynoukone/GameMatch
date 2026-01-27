@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useFavorites } from "@/context/FavoritesContext.jsx";
 
-export default function GameCard({ game }) {
+export default function GameCard({ game, onClick }) {
   const { isFavorite, toggleFavorite } = useFavorites();
   const fav = isFavorite(game.id);
 
@@ -12,9 +12,16 @@ export default function GameCard({ game }) {
     toggleFavorite(game);
   };
 
+  const handleCardClick = () => {
+    if (onClick) {
+      onClick();
+    }
+  };
+
   return (
     <Link
       to={`/detail-jeu/${game.id}`}
+      onClick={handleCardClick}
       className="border rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 block"
     >
       <img
@@ -49,3 +56,4 @@ export default function GameCard({ game }) {
     </Link>
   );
 }
+
