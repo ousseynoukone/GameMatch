@@ -81,6 +81,14 @@ export default function SearchGameModal({ open, setOpen }) {
                 p-4
               "
             >
+
+                {games.length == 0 && ( 
+                <div className="flex flex-col items-center justify-center mt-40">
+                    <p className="text-gray-500 text-center">No games to display</p>
+                    </div>
+                )}
+
+
               {games.length > 0 ? (
                 <div className="grid grid-cols-3 gap-4">
                   {games.map((game) => (
@@ -94,11 +102,15 @@ export default function SearchGameModal({ open, setOpen }) {
               ) : (
                 searchTerm.trim() &&
                 !error && (
-                  <p className="text-sm text-gray-500">
+                  <p className="text-sm text-gray-500 text-center">
                     No results.
                   </p>
-                )
+                ) 
+
+      
               )}
+
+              
             </div>
           )}
         </div>
