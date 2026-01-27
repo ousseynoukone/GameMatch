@@ -30,6 +30,8 @@ export async function getGames(startIndex) {
     return games;
 }
 
+
+
 export async function getGameById(id) {
     const apibyId = api + "/game?id=" + id;
     return fetch(apibyId, { headers })
@@ -47,4 +49,21 @@ export async function getGamesByName(name) {
     } else {
         return null;
     }
+}
+
+export function getByArg(genre = [], platform = null, sortBy = null) {
+    let apiUrl = api + "/games";
+    if (genre.length !== 0) {
+        apiUrl += "?category=" + genre.join("&?category=");
+    }
+    if (platform) {
+        apiUrl += (genre.length === 0 ? "?" : "&?") + "platform=" + platform;
+    }
+    if (sortBy) {
+        apiUrl += (genre.length === 0 && !platform ? "?" : "&?") + "sort-by=" + sortBy;
+    }
+    return fetch(apiUrl, { headers })
+        .then((response) => response.json())
+        .then((data) => data)
+        .catch((error) => console.error("Error fetching games by arguments:", error));
 }
