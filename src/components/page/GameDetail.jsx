@@ -67,9 +67,9 @@ export default function GameDetail() {
             <button
               type="button"
               onClick={handleFavoriteClick}
-              className="text-red-500 hover:text-red-600 text-2xl"
+              className="text-red-500 hover:text-red-600 text-xl"
             >
-              {fav ? <i class="fa-solid fa-heart"></i> : <i class="fa-regular fa-heart"></i>}
+              {fav ? "♥" : "♡"}
             </button>
           </div>
           <p className="text-sm text-gray-600">{game.short_description}</p>

@@ -34,7 +34,9 @@ export default function Home() {
 
       setLoading(true);
 
-      const newGames = await getGames(startIndex);
+      const newGames = await getGames(startIndex,selectedGenre ? [selectedGenre] : [], selectedPlatform);
+
+      console.log(newGames);
 
       setGames(prevGames => { if(JSON.stringify(prevGames) === JSON.stringify(newGames)) return prevGames; else return [...prevGames, ...newGames] });
 
@@ -42,11 +44,12 @@ export default function Home() {
     };
 
     fetchGames();
-  }, [startIndex]);
+  }, [startIndex, selectedPlatform, selectedGenre]);
 
   useEffect(() => {
     setGames([]);
     setStartIndex(0);
+    
   }, [selectedPlatform, selectedGenre]);
 
 

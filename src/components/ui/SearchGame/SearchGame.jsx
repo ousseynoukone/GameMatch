@@ -23,7 +23,6 @@ export default function SearchGameModal({ open, setOpen }) {
 
     try {
       const game = await getGamesByName(searchTerm.trim());
-      console.log(searchTerm);
 
       if (!game) {
         setError("No game found with this name.");
