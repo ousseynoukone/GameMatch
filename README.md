@@ -25,7 +25,7 @@ Users can search for video games by name.
 
 - Search input field
 - Fetches game data from an external API
-- Displays matching games dynamically
+- Displays matching games dynamically with pagination
 - Handles loading and empty results states
 
 Implemented in:
