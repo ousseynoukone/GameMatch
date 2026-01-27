@@ -1,52 +1,40 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useContext, useState, useEffect } from "react";
 
-const FavoritesContext = createContext(null);
+const FavoritesContext = createContext();
 
 export function FavoritesProvider({ children }) {
   const [favorites, setFavorites] = useState([]);
 
+  // 1er chargmen,t
   useEffect(() => {
-    try {
-      const stored = localStorage.getItem("favorites");
-      if (stored) {
-        setFavorites(JSON.parse(stored));
-      }
-    } catch (e) {
-      console.error("Failed to load favorites from localStorage", e);
-    }
+    const saved = localStorage.getItem("favorites");
+    if (saved) setFavorites(JSON.parse(saved));
   }, []);
 
+  // SAuvegarde quand setFavorites change
   useEffect(() => {
-    try {
-      localStorage.setItem("favorites", JSON.stringify(favorites));
-    } catch (e) {
-      console.error("Failed to save favorites to localStorage", e);
-    }
+    localStorage.setItem("favorites", JSON.stringify(favorites));
   }, [favorites]);
 
-  const isFavorite = (id) => favorites.some((g) => g.id === id);
+  function toggleFavorite(game) {
+    setFavorites(prev => {
+      const exists = prev.find(g => g.id === game.id);
 
-  const toggleFavorite = (game) => {
-    setFavorites((prev) => {
-      if (!game || !game.id) return prev;
-      if (prev.some((g) => g.id === game.id)) {
-        return prev.filter((g) => g.id !== game.id);
+      if (exists) {
+        return prev.filter(g => g.id !== game.id);
       }
-      const minimal = {
-        id: game.id,
-        title: game.title,
-        thumbnail: game.thumbnail,
-        genre: game.genre,
-        platform: game.platform,
-        short_description: game.short_description || game.description || "",
-      };
-      return [...prev, minimal];
+
+      return [...prev, game];
     });
-  };
+  }
+
+  function isFavorite(id) {
+    return favorites.some(g => g.id === id);
+  }
 
   return (
     <FavoritesContext.Provider
-      value={{ favorites, isFavorite, toggleFavorite }}
+      value={{ favorites, toggleFavorite, isFavorite }}
     >
       {children}
     </FavoritesContext.Provider>
@@ -54,10 +42,5 @@ export function FavoritesProvider({ children }) {
 }
 
 export function useFavorites() {
-  const ctx = useContext(FavoritesContext);
-  if (!ctx) {
-    throw new Error("useFavorites must be used within a FavoritesProvider");
-  }
-  return ctx;
+  return useContext(FavoritesContext);
 }
-

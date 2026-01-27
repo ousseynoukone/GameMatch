@@ -3,7 +3,6 @@ import { InputSelect } from "../ui/input_select";
 import { useEffect, useState } from "react";
 import GameCard from "../ui/GameCard/GameCard";
 
-import SearchGameModal from '../ui/SearchGame/SearchGame';
 
 export default function Home() {
   const [selectedPlatform, setSelectedPlatform] = useState(null);
@@ -49,7 +48,7 @@ export default function Home() {
   useEffect(() => {
     setGames([]);
     setStartIndex(0);
-    
+
   }, [selectedPlatform, selectedGenre]);
 
 

@@ -28,9 +28,10 @@ export default function GameCard({ game }) {
           <button
             type="button"
             onClick={handleFavoriteClick}
-            className="text-red-500 hover:text-red-600"
+            className="text-red-500 hover:text-red-600 text-xl"
           >
-            {fav ? "♥" : "♡"}
+            {fav ? <i class="fa-solid fa-heart"></i> : <i class="fa-regular fa-heart"></i>}
+
           </button>
         </div>
         <p className="text-sm text-gray-600 mb-4">
