@@ -15,17 +15,57 @@ export default function Home() {
 
   const platformOptions = [
     { value: "pc", label: "PC" },
-    { value: "playstation", label: "PlayStation" },
-    { value: "xbox", label: "Xbox" },
-    { value: "nintendo", label: "Nintendo Switch" },
+    { value: "browser", label: "Browser" },
   ];
 
-  const genreOptions = [
-    { value: "action", label: "Action" },
-    { value: "adventure", label: "Adventure" },
-    { value: "rpg", label: "RPG" },
+    const genreOptions = [
+    { value: "mmorpg", label: "MMORPG" },
+    { value: "shooter", label: "Shooter" },
     { value: "strategy", label: "Strategy" },
-  ];
+    { value: "moba", label: "MOBA" },
+    { value: "racing", label: "Racing" },
+    { value: "sports", label: "Sports" },
+    { value: "social", label: "Social" },
+    { value: "sandbox", label: "Sandbox" },
+    { value: "open_world", label: "Open World" },
+    { value: "survival", label: "Survival" },
+    { value: "pvp", label: "PvP" },
+    { value: "pve", label: "PvE" },
+    { value: "pixel", label: "Pixel" },
+    { value: "voxel", label: "Voxel" },
+    { value: "zombie", label: "Zombie" },
+    { value: "turn_based", label: "Turn-Based" },
+    { value: "first_person", label: "First-Person" },
+    { value: "third_person", label: "Third-Person" },
+    { value: "top_down", label: "Top-Down" },
+    { value: "tank", label: "Tank" },
+    { value: "space", label: "Space" },
+    { value: "sailing", label: "Sailing" },
+    { value: "side_scroller", label: "Side-Scroller" },
+    { value: "superhero", label: "Superhero" },
+    { value: "permadeath", label: "Permadeath" },
+    { value: "card", label: "Card" },
+    { value: "battle_royale", label: "Battle Royale" },
+    { value: "mmo", label: "MMO" },
+    { value: "mmofps", label: "MMOFPS" },
+    { value: "mmotps", label: "MMOTPS" },
+    { value: "3d", label: "3D" },
+    { value: "2d", label: "2D" },
+    { value: "anime", label: "Anime" },
+    { value: "fantasy", label: "Fantasy" },
+    { value: "sci_fi", label: "Sci-Fi" },
+    { value: "fighting", label: "Fighting" },
+    { value: "action_rpg", label: "Action RPG" },
+    { value: "action", label: "Action" },
+    { value: "military", label: "Military" },
+    { value: "martial_arts", label: "Martial Arts" },
+    { value: "flight", label: "Flight" },
+    { value: "low_spec", label: "Low Spec" },
+    { value: "tower_defense", label: "Tower Defense" },
+    { value: "horror", label: "Horror" },
+    { value: "mmorts", label: "MMORTS" }
+    ];
+
 
   useEffect(() => {
     const fetchGames = async () => {

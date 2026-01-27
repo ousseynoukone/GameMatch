@@ -1,6 +1,3 @@
-import { useRef } from "react";
-import { useCallback } from "react";
-
 let cacheAllGames = null;
 const api = "https://free-to-play-games-database.p.rapidapi.com/api";
 const headers = {
@@ -9,7 +6,8 @@ const headers = {
 };
 const size = 20;
 
-function getAllGames(genre, platform = "", sortBy = "") {
+// Fetch all games with optional filters (no React hooks here)
+async function getAllGames(genre = [], platform = "", sortBy = "") {
   let apiUrl = api + "/games";
 
   if (genre.length !== 0) {
@@ -22,16 +20,33 @@ function getAllGames(genre, platform = "", sortBy = "") {
     apiUrl +=
       (genre.length === 0 && !platform ? "?" : "&?") + "sort-by=" + sortBy;
   }
-  return fetch(apiUrl, { headers })
-    .then((response) => response.json())
-    .then((data) => data)
-    .catch((error) => console.error("Error fetching games:", error));
+
+  try {
+    const response = await fetch(apiUrl, { headers });
+    const data = await response.json();
+
+    // Cache only the unfiltered list for search
+    if (genre.length === 0 && !platform && !sortBy) {
+      cacheAllGames = data;
+    }
+
+    return data;
+  } catch (error) {
+    console.error("Error fetching games:", error);
+    return [];
+  }
 }
 
-export async function getGames(startIndex, genre = [], platform = null, sortBy = null) {
-    const cacheGames = useCallback(getAllGames(genre, platform, sortBy), [genre, platform, sortBy]);
-    const games = cacheAllGames.slice(startIndex, startIndex + size);
-    return games;
+// Paginated games for Home (uses startIndex, platform, genre, sortBy)
+export async function getGames(
+  startIndex,
+  genre = [],
+  platform = null,
+  sortBy = null
+) {
+  const allGames = await getAllGames(genre, platform || "", sortBy || "");
+  const games = allGames.slice(startIndex, startIndex + size);
+  return games;
 }
 
 export async function getGameById(id) {
@@ -42,26 +57,13 @@ export async function getGameById(id) {
     .catch((error) => console.error("Error fetching game by ID:", error));
 }
 
-// export async function getGamesByName(name) {
-//   const allGames = cacheAllGames || (await getAllGames(api));
-//   const id = allGames.find(
-//     (game) => game.title.toLowerCase() === name.toLowerCase()
-//   )?.id;
-
-//   if (id) {
-//     return getGameById(id);
-//   } else {
-//     return null;
-//   }
-// }
-
 export async function getGamesByString(str) {
-  const allGames = cacheAllGames || (await getAllGames(api));
+  const allGames = cacheAllGames || (await getAllGames());
   const allGamesByString = [];
 
   allGames.forEach((game) => {
     const nameGame = game.title;
-    if (nameGame.includes(str)) {
+    if (nameGame.toLowerCase().includes(str.toLowerCase())) {
       allGamesByString.push(game);
     }
   });
@@ -72,3 +74,4 @@ export async function getGamesByString(str) {
     return null;
   }
 }
+
