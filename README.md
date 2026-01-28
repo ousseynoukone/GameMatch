@@ -19,9 +19,14 @@ The project demonstrates modern front-end development practices with React, reus
 ---
 
 ## Installation 
-Commande : git clone <lien du repo>
-           npm install
-           npm start
+Commande : 
+## Run the project locally
+
+```bash
+git clone <repo-url>
+cd <project-folder>
+npm install
+npm start
 
 ## ⚙️ Core Functionalities
 
