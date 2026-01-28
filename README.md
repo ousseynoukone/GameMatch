@@ -26,7 +26,7 @@ Commande :
 git clone <repo-url>
 cd <project-folder>
 npm install
-npm start
+npm start ```
 
 ## ⚙️ Core Functionalities
 
