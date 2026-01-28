@@ -18,6 +18,11 @@ The project demonstrates modern front-end development practices with React, reus
 
 ---
 
+## Installation 
+Commande : git clone <lien du repo>
+           npm install
+           npm start
+
 ## ⚙️ Core Functionalities
 
 ### 🔍 1. Game Search
